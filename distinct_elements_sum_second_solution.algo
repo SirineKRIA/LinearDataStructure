@@ -1,0 +1,81 @@
+ALGORITHM SUM_OF_DISTINCT_ELEMENTS_2_solution
+
+VAR
+    sum: INTEGER := 0;
+    i, j, elt: INTEGER;
+    len1: INTEGER;
+    len2: INTEGER;
+    set1: ARRAY_OF INTEGER[100];
+    set2: ARRAY_OF INTEGER[100];
+    hTab: HASH_TABLE<INTEGER,INTEGER>;
+
+BEGIN
+
+    /* Enter right set1 length */
+    REPEAT
+        write("Enter set1 array length");
+        Read(len1)
+    UNTIL (len1 <= 100)
+
+    /* Enter right set2 length */
+    REPEAT
+        write("Enter set2 array length");
+        Read(len2)
+    UNTIL (len2 <= 100)
+
+    /* Enter set1 array elements */
+    FOR i FROM 0 TO (len1-1)  DO
+        write("Enter new set1 element");
+        Read(elt);
+        set1[i] = elt;
+    END_FOR
+
+    /* Enter set2 array elements */
+    FOR i FROM 0 TO (len2-1)  DO
+        write("Enter new set2 element");
+        Read(elt);
+        set2[i] = elt;
+    END_FOR
+
+    /* Insert set1 elements to hash table */
+    FOR i FROM 0 TO (set1.length-1)  DO
+        hTab.insert(set1[i], 1);
+    END_FOR
+
+    /* Browse set2 elements to insert them in hTab */
+    FOR i FROM 0 TO (set2.length-1)  DO
+        /* set2 element doesn't exist in hash table */
+        IF (hTab.lookup(set2[i]) = false) THEN
+            /* Insert set2 element to hash table */
+            hTab.insert(set2[i], 1);
+        /* set2 element exists in hash table */  
+        ELSE
+            /* Get set2 element count */
+            j := hTab.get(set2[i]);
+            /* Increment element count and insert it again */
+            hTab.insert(set2[i], j+1);
+        END_IF
+    END_FOR
+
+    /* Browse set1 array */
+    FOR i FROM 0 TO (set1.length-1)  DO
+        /* set1 element is repeated only once */
+        IF (hTab.get(set1[i]) = 1) THEN
+            /* Add set1 element to sum */
+            sum := sum + set1[i];
+        END_IF
+    END_FOR
+
+    /* Browse set2 array */
+    FOR i FROM 0 TO (set2.length-1)  DO
+        /* set2 element is repeated only once */
+        IF (hTab.get(set2[i]) = 1) THEN
+            /* Add set2 element to sum */
+            sum := sum + set2[i];
+        END_IF
+    END_FOR
+
+    /* Display calculated sum */
+    write("The sum: ", sum)
+
+END

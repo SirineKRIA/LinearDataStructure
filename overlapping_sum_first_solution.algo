@@ -1,0 +1,86 @@
+ALGORITHM SUM_OF_DISTINCT_ELEMENTS_1_solution
+
+VAR
+    /* Counters */
+    i, j: INTEGER;
+    /* Entered element */
+    elt: INTEGER;
+    /* set2 array length */
+    len1: INTEGER;
+    /* arrSum aray length */
+    len2: INTEGER;
+    /* set1 array */
+    set1: ARRAY_OF INTEGER[100];
+    /* set2 array */
+    set2: ARRAY_OF INTEGER[100];
+    /* Sum of distinct elements array */
+    sum: INTEGER := 0;
+
+BEGIN
+
+    /* Init arr index */
+    c = 0;
+    /* Init eltFound */
+    eltFound = false;
+
+    /* Enter right set1 length */
+    REPEAT
+        write("Enter set1 array length");
+        Read(len1)
+    UNTIL (len1 <= 100)
+
+    /* Enter right set2 length */
+    REPEAT
+        write("Enter set2 array length");
+        Read(len2)
+    UNTIL (len2 <= 100)
+
+    /* Enter set1 array elements */
+    FOR i FROM 0 TO (len1-1)  DO
+        write("Enter new set1 element");
+        Read(elt);
+        set1[i] = elt;
+    END_FOR
+
+    /* Enter set2 array elements */
+    FOR i FROM 0 TO (len2-1)  DO
+        write("Enter new set2 element");
+        Read(elt);
+        set2[i] = elt;
+    END_FOR
+
+    /* Browse set1 */
+    FOR i FROM 0 TO (len1-1)  DO
+        /* Browse set2 array */
+        FOR j FROM 0 TO (len2-1)  DO
+            /* Check set1 element, if it exists in set2 */
+            IF (set1[i] = set2[j]) THEN
+                Break;
+            END_IF
+        END_FOR
+        /* set1 element exist in set2 */
+        IF (j < len2) THEN
+            /* Add set1 element to sum */
+            sum = sum + set1[i];
+        END_IF
+    END_FOR
+    /* Browse set2 */
+    FOR i FROM 0 TO (len2-1)  DO
+        /* Browse set2 array */
+        FOR j FROM 0 TO (len1-1)  DO
+            /* Check set1 element, if it exists in set2 */
+            IF (set2[i] = set1[j]) THEN
+                Break;
+            END_IF
+        END_FOR
+        /* set1 element does'nt exist in set2 */
+        IF (j < len1) THEN
+            /* Store set1 element in arrSum */
+            sum = sum + set2[i];
+        END_IF
+    END_FOR
+
+    /* Dispaly calculated sum */
+    write("The sum: ", sum)
+
+END
