@@ -3,10 +3,12 @@ ALGORITHM SUM_OF_DISTINCT_ELEMENTS_2_solution
 VAR
     sum: INTEGER := 0;
     i, j, elt: INTEGER;
+    /* Set1 and set2 max length value */
+    maxLength: INTEGER := 100;
     len1: INTEGER;
     len2: INTEGER;
-    set1: ARRAY_OF INTEGER[100];
-    set2: ARRAY_OF INTEGER[100];
+    set1: ARRAY_OF INTEGER[maxLength];
+    set2: ARRAY_OF INTEGER[maxLength];
     hTab: HASH_TABLE<INTEGER,INTEGER>;
 
 BEGIN
@@ -15,13 +17,13 @@ BEGIN
     REPEAT
         write("Enter set1 array length");
         Read(len1)
-    UNTIL (len1 <= 100)
+    UNTIL ((len1 >= maxLength) OR (len1 <= 0))
 
     /* Enter right set2 length */
     REPEAT
         write("Enter set2 array length");
         Read(len2)
-    UNTIL (len2 <= 100)
+    UNTIL ((len2 >= maxLength) OR (len2 <= 0))
 
     /* Enter set1 array elements */
     FOR i FROM 0 TO (len1-1)  DO
